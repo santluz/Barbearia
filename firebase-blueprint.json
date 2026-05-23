@@ -1,0 +1,99 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a client or administrator in the glacier barbershop",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The unique user UID" },
+        "name": { "type": "string", "description": "The full name of the user" },
+        "email": { "type": "string", "format": "email", "description": "The user email" },
+        "phone": { "type": "string", "description": "Phone number" },
+        "role": { "type": "string", "enum": ["admin", "client"], "description": "System role" },
+        "preferredStyle": { "type": "string", "description": "User's preferred hairstyle" },
+        "avatar": { "type": "string", "description": "URL link to the avatar image" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "Haircut": {
+      "title": "Haircut",
+      "description": "Services offered by the barbershop",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "price": { "type": "number" },
+        "duration": { "type": "number" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "category": { "type": "string", "enum": ["classic", "fade", "beard", "long_hair"] }
+      },
+      "required": ["id", "title", "price", "duration", "description", "category"]
+    },
+    "Professional": {
+      "title": "Professional",
+      "description": "Barbers and specialists working in the shop",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "avatar": { "type": "string" }
+      },
+      "required": ["id", "name", "role", "avatar"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Scheduled appointments",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "clientName": { "type": "string" },
+        "clientEmail": { "type": "string" },
+        "clientPhone": { "type": "string" },
+        "serviceId": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "professionalId": { "type": "string" },
+        "professionalName": { "type": "string" },
+        "date": { "type": "string" },
+        "timeSlot": { "type": "string" },
+        "status": { "type": "string", "enum": ["confirmed", "pending", "cancelled"] },
+        "price": { "type": "number" },
+        "duration": { "type": "number" }
+      },
+      "required": [
+        "id",
+        "clientName",
+        "clientEmail",
+        "clientPhone",
+        "serviceId",
+        "serviceName",
+        "professionalId",
+        "professionalName",
+        "date",
+        "timeSlot",
+        "status",
+        "price",
+        "duration"
+      ]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "List of registered clients and admins"
+    },
+    "haircuts": {
+      "schema": "Haircut",
+      "description": "List of salon haircut services available"
+    },
+    "barbers": {
+      "schema": "Professional",
+      "description": "Active barbers and specialists"
+    },
+    "bookings": {
+      "schema": "Booking",
+      "description": "Appointment reservations list"
+    }
+  }
+}
